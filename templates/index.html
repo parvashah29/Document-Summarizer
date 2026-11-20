@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Summarizer - AI-Powered Document Analysis</title>
+    <!-- Fancy Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            min-height: 100%;
+            overflow-y: auto !important;
+        }
+        body {
+            font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            position: relative;
+        }
+        .glass-effect {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(255, 255, 255, 0.15);
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        /* Futuristic glowing lines */
+        .glow-line {
+            position: absolute;
+            width: 2px;
+            height: 100vh;
+            background: linear-gradient(180deg, #00fff0 0%, #0057ff 100%);
+            opacity: 0.2;
+            filter: blur(2px);
+            animation: moveLine 8s linear infinite;
+        }
+        .glow-line:nth-child(1) { left: 10vw; animation-delay: 0s; }
+        .glow-line:nth-child(2) { left: 30vw; animation-delay: 2s; }
+        .glow-line:nth-child(3) { left: 60vw; animation-delay: 4s; }
+        .glow-line:nth-child(4) { left: 80vw; animation-delay: 6s; }
+        @keyframes moveLine {
+            0% { top: -100vh; }
+            100% { top: 100vh; }
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white">
+    <!-- Animated Glowing Lines -->
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+    <div class="glow-line"></div>
+    <!-- Navigation -->
+    <nav class="glass-effect p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest" style="font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;">DocSum AI</div>
+            <div class="space-x-4">
+                <a href="/login" class="hover:text-cyan-400 transition">Login</a>
+                <a href="/register" class="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-full transition">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h1 class="text-5xl font-bold mb-6" style="font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;">Transform Your Documents with AI</h1>
+                <p class="text-xl mb-8 text-cyan-200">Upload your documents and get instant summaries, insights, and answers to your questions using advanced AI technology.</p>
+                <div class="space-x-4">
+                    <a href="/register" class="bg-cyan-500 hover:bg-cyan-600 px-8 py-3 rounded-full text-lg transition">Get Started</a>
+                    <a href="#features" class="border border-cyan-300 hover:bg-cyan-300 hover:text-gray-900 px-8 py-3 rounded-full text-lg transition">Learn More</a>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <div class="animate-float">
+                    <img src="{{ url_for('static', filename='images/landing page image.png') }}" alt="AI Document Analysis@landing page image.png" class="w-full rounded-2xl shadow-2xl border-4 border-cyan-400">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" style="font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;">Powerful Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="text-4xl mb-4 text-cyan-400">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Smart Summarization</h3>
+                    <p class="text-cyan-200">Get concise, accurate summaries of your documents using advanced AI models.</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="text-4xl mb-4 text-cyan-400">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Intelligent Q&A</h3>
+                    <p class="text-cyan-200">Ask questions about your documents and get precise answers instantly.</p>
+                </div>
+                <div class="glass-effect p-6 rounded-xl">
+                    <div class="text-4xl mb-4 text-cyan-400">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Secure & Private</h3>
+                    <p class="text-cyan-200">Your documents are processed securely and never shared with third parties.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12" style="font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;">How It Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="glass-effect w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-upload text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Upload</h3>
+                    <p class="text-cyan-200">Upload your PDF or Word documents</p>
+                </div>
+                <div class="text-center">
+                    <div class="glass-effect w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-robot text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Process</h3>
+                    <p class="text-cyan-200">AI analyzes your document</p>
+                </div>
+                <div class="text-center">
+                    <div class="glass-effect w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-file-signature text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Summarize</h3>
+                    <p class="text-cyan-200">Get a concise summary</p>
+                </div>
+                <div class="text-center">
+                    <div class="glass-effect w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-comments text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold mb-2">Ask Questions</h3>
+                    <p class="text-cyan-200">Get answers to your questions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="glass-effect mt-16 py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2024 DocSum AI. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
