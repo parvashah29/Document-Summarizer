@@ -60,7 +60,7 @@ def generate(prompt):
 
     retries = int(os.environ.get("LLM_RETRIES", "3"))
     base_delay = float(os.environ.get("LLM_BACKOFF_SECONDS", "2"))
-    last = "unknown error"
+    last = transient = "unknown error"
 
     for model in model_chain():
         for attempt in range(retries + 1):
@@ -69,6 +69,8 @@ def generate(prompt):
             except Exception as exc:  # noqa: BLE001 - classify below
                 code = _status_code(exc)
                 last = f"{model}: HTTP {code}" if code else f"{model}: {type(exc).__name__}"
+                if code in RETRYABLE or not code:
+                    transient = last  # prefer reporting overload over "model not found"
                 if code in (401, 403) or "API_KEY_INVALID" in str(exc):
                     raise LLMError("The Gemini API key was rejected. Check GEMINI_API_KEY.") from None
                 if code in RETRYABLE and attempt < retries:
@@ -80,5 +82,5 @@ def generate(prompt):
                 break
     raise LLMError(
         "The AI service is temporarily unavailable (it may be overloaded or rate limited). "
-        f"Please try again in a minute. [{last}]"
+        f"Please try again in a minute. [{transient if transient != 'unknown error' else last}]"
     )
