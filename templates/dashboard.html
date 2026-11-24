@@ -274,7 +274,7 @@
                 <i class="fas fa-cloud-upload-alt text-3xl mb-3 text-cyan-400"></i>
                 <h3 class="text-lg mb-2">Drag & Drop your document here</h3>
                 <p class="text-cyan-200 mb-3">or</p>
-                <input type="file" id="fileInput" class="hidden" accept=".pdf,.docx,.doc">
+                <input type="file" id="fileInput" class="hidden" accept=".pdf,.docx">
                 <button onclick="document.getElementById('fileInput').click()"
                     class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg transition duration-200">
                     Choose File
@@ -441,15 +441,18 @@
             handleFiles(this.files);
         });
 
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+        }
+
         function handleFiles(files) {
             if (files.length > 0) {
                 const file = files[0];
                 if (file.type === 'application/pdf' ||
-                    file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-                    file.type === 'application/msword') {
+                    file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
                     uploadFile(file);
                 } else {
-                    alert('Please upload a PDF or Word document.');
+                    alert('Please upload a PDF or DOCX document.');
                 }
             }
         }
@@ -507,7 +510,7 @@
                                 <div class="stat-label">Words</div>
                             </div>
                             <div class="stat-card glass-effect rounded-lg">
-                                <span class="domain-badge ${getDomainClass(data.domain)}">${data.domain || 'Unknown'}</span>
+                                <span class="domain-badge ${getDomainClass(data.domain)}">${esc(data.domain || 'Unknown')}</span>
                                 <div class="stat-label mt-1">Domain</div>
                             </div>
                         `;
@@ -516,7 +519,7 @@
                         let keywordsHtml = '';
                         if (data.keywords && data.keywords.length > 0) {
                             keywordsHtml = '<div class="mb-3"><h4 class="font-bold mb-2 text-sm">Keywords</h4>' +
-                                data.keywords.map(kw => `<span class="keyword-tag">${kw}</span>`).join('') +
+                                data.keywords.map(kw => `<span class="keyword-tag">${esc(kw)}</span>`).join('') +
                                 '</div>';
                         }
 
@@ -524,7 +527,7 @@
                             ${keywordsHtml}
                             <div>
                                 <h4 class="font-bold mb-2 text-sm">Summary</h4>
-                                <p class="text-cyan-200 text-sm">${data.summary}</p>
+                                <p class="text-cyan-200 text-sm" style="white-space: pre-wrap;">${esc(data.summary)}</p>
                             </div>
                         `;
 
@@ -547,8 +550,8 @@
                                     const config = entityLabels[key] || { icon: 'fa-tag', label: key };
                                     entitiesHtml += `
                                         <div>
-                                            <div class="entity-label"><i class="fas ${config.icon} mr-1"></i>${config.label}</div>
-                                            ${items.slice(0, 5).map(item => `<span class="entity-item">${item}</span>`).join('')}
+                                            <div class="entity-label"><i class="fas ${config.icon} mr-1"></i>${esc(config.label)}</div>
+                                            ${items.slice(0, 5).map(item => `<span class="entity-item">${esc(item)}</span>`).join('')}
                                             ${items.length > 5 ? `<span class="text-xs text-gray-400">+${items.length - 5} more</span>` : ''}
                                         </div>
                                     `;
@@ -622,9 +625,9 @@
                         answerBox.innerHTML = `
                         <div>
                             <h4 class="font-bold mb-1">Question:</h4>
-                            <p class="text-cyan-200 mb-2">${question}</p>
+                            <p class="text-cyan-200 mb-2">${esc(question)}</p>
                             <h4 class="font-bold mb-1">Answer:</h4>
-                            <p class="text-cyan-200">${data.answer}</p>
+                            <p class="text-cyan-200" style="white-space: pre-wrap;">${esc(data.answer)}</p>
                         </div>
                     `;
                         answerBox.classList.remove('hidden');

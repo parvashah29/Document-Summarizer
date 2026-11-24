@@ -1,16 +1,7 @@
-flask
-flask-sqlalchemy
-flask-login
-werkzeug
-PyPDF2
-python-docx
-transformers
-torch
-nltk
-spacy
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
-faiss-cpu
-numpy
-pandas
-python-dotenv
-google-generativeai 
+Flask>=3.0
+Flask-SQLAlchemy>=3.1
+Flask-Login>=0.6.3
+python-dotenv>=1.0
+pypdf>=4.0
+python-docx>=1.1
+google-genai>=1.0
